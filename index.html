@@ -1,0 +1,926 @@
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy anniversary</title>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fef0f7;
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+
+
+        .page {
+            text-align: center;
+            margin-bottom: 50px;
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #444;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            color: #e889aa;
+            font-size: 48px;
+            font-weight: bold;
+            margin: 0;
+            display: inline;
+        }
+
+        .emoji {
+            font-size: 48px;
+            margin-left: 10px;
+            color: #444;
+        }
+
+        .instruction {
+            color: #6d7e96;
+            font-size: 18px;
+            margin: 30px 0;
+            font-weight: 500;
+        }
+
+        .next-btn {
+            background: #e889aa;
+            color: white;
+            border: none;
+            padding: 15px 60px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(232, 137, 170, 0.3);
+        }
+
+        .next-btn:hover {
+            background: #d577a0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(232, 137, 170, 0.4);
+        }
+
+        .next-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Page 2 styles */
+        .envelope-img, .crying-img, .header-img {
+            max-width: 300px;
+            height: auto;
+            margin-bottom: 30px;
+        }
+        
+        .crying-img {
+            margin-top: 20px;
+        }
+        
+        .header-img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 5px solid white;
+            transform: rotate(-3deg);
+            transition: transform 0.3s ease;
+        }
+        
+        .header-img:hover {
+            transform: rotate(3deg);
+        }
+
+        .question-text {
+            font-size: 20px;
+            font-weight: bold;
+            color: #7a4b73;
+            margin: 0 <br>
+        }
+        
+        .plea-title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #444;
+            margin: 5px 0;
+            line-height: 1.2;
+        }
+        
+        .plea-subtitle {
+            font-size: 32px;
+            font-weight: bold;
+            color: #444;
+            margin: 5px 0 40px 0;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .choice-btn {
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .open-btn {
+            background: #e889aa;
+            color: white;
+            box-shadow: 0 4px 15px rgba(232, 137, 170, 0.3);
+        }
+
+        .open-btn:hover {
+            background: #d577a0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(232, 137, 170, 0.4);
+        }
+
+        .no-btn {
+            background: #7dd3c0;
+            color: white;
+            box-shadow: 0 4px 15px rgba(125, 211, 192, 0.3);
+        }
+
+        .no-btn:hover {
+            background: #6bc4b0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(125, 211, 192, 0.4);
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .letter-container {
+            background: #fff;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+
+        .letter-header {
+            background: #ffd6e4;
+            padding: 15px 20px;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ffc0d5;
+        }
+
+        .letter-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #7a4b73;
+            margin: 0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #7a4b73;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+
+        .close-btn:hover {
+            background: #ffbcd5;
+        }
+
+        .letter-content {
+            padding: 30px;
+            padding-top: 1px ;
+            background-color: #ffebf2; /* 备用背景色 */
+            background-image: url('rjonvzwh90.png');
+            background-size: 100% 100%;
+            min-height: 500px;
+            position: relative;
+        }
+
+        .letter-greeting {
+            font-size: 24px;
+            font-weight: bold;
+            color: #7a4b73;
+            margin-bottom: 30px;
+            margin-top: 30px;
+            font-style: italic;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+
+        .letter-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #7a4b73;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            text-align: left;
+            font-style: italic;
+            text-shadow: 0 0 3px rgba(255, 255, 255, 0.7);
+            padding: 0 20px;
+        }
+
+        .letter-signature {
+            text-align: right;
+            font-style: italic;
+            color: #7a4b73;
+            margin-top: 40px;
+            padding-right: 20px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 3px rgba(255, 255, 255, 0.7);
+        }
+        
+        [contenteditable="true"]:focus {
+            outline: 2px dashed rgba(255, 150, 180, 0.5);
+            padding: 5px;
+            border-radius: 5px;
+        }
+        
+        .letter-actions {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        /* 手机端适配 */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 32px;
+            }
+            
+            .subtitle {
+                font-size: 32px;
+            }
+            
+            .emoji {
+                font-size: 32px;
+            }
+            
+            .header-img {
+                width: 150px;
+                height: 150px;
+                border-radius: 12px;
+            }
+            
+            .instruction {
+                font-size: 16px;
+                margin: 20px 0;
+            }
+            
+            .next-btn {
+                padding: 12px 40px;
+                font-size: 16px;
+            }
+            
+            .envelope-img, .crying-img {
+                max-width: 250px;
+            }
+            
+            .question-text {
+                font-size: 20px;
+                margin: 15px 0 30px 0;
+            }
+            
+            .plea-title {
+                font-size: 28px;
+            }
+            
+            .plea-subtitle {
+                font-size: 24px;
+            }
+            
+            .choice-btn {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+            
+            .button-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .letter-container {
+                width: 95%;
+                max-height: 85vh;
+            }
+            
+            .letter-content {
+                padding: 20px;
+            }
+            
+            .letter-greeting {
+                font-size: 20px;
+                margin-top: 40px;
+            }
+            
+            .letter-text {
+                font-size: 14px;
+                padding: 0 10px;
+            }
+            
+            .letter-signature {
+                padding-right: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .title {
+                font-size: 28px;
+            }
+            
+            .subtitle {
+                font-size: 28px;
+            }
+            
+            .emoji {
+                font-size: 28px;
+            }
+            
+            .header-img {
+                width: 120px;
+                height: 120px;
+                border-radius: 10px;
+            }
+            
+            .instruction {
+                font-size: 14px;
+            }
+            
+            .plea-title {
+                font-size: 24px;
+            }
+            
+            .plea-subtitle {
+                font-size: 20px;
+            }
+            
+            .envelope-img, .crying-img {
+                max-width: 200px;
+            }
+            
+            .letter-container {
+                width: 98%;
+            }
+            
+            .letter-content {
+                padding: 15px;
+            }
+            
+            .letter-greeting {
+                font-size: 18px;
+            }
+            
+            .letter-text {
+                font-size: 13px;
+            }
+        }
+        
+        /* 音乐控制器样式 */
+        .music-control-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .music-control {
+            background: rgba(232, 137, 170, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(232, 137, 170, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .music-control:hover {
+            background: rgba(213, 119, 160, 0.9);
+            transform: scale(1.1);
+        }
+        
+        .music-control.playing {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 4px 15px rgba(232, 137, 170, 0.3); }
+            50% { box-shadow: 0 4px 25px rgba(232, 137, 170, 0.6); }
+            100% { box-shadow: 0 4px 15px rgba(232, 137, 170, 0.3); }
+        }
+        
+        .volume-control {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 10px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            min-width: 60px;
+        }
+        
+        .music-control-container:hover .volume-control {
+            display: flex;
+        }
+        
+        .volume-slider {
+            writing-mode: vertical-lr;
+            direction: rtl;
+            width: 20px;
+            height: 80px;
+            background: linear-gradient(to top, #e889aa, #f0f0f0);
+            border-radius: 10px;
+            outline: none;
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #e889aa;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .volume-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #e889aa;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .volume-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+            font-weight: bold;
+        }
+        
+        .music-tooltip {
+            position: absolute;
+            bottom: 60px;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .music-control:hover .music-tooltip {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @media (max-width: 768px) {
+            .music-control-container {
+                bottom: 15px;
+                right: 15px;
+            }
+            
+            .music-control {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+            
+            .volume-control {
+                padding: 10px 8px;
+            }
+            
+            .volume-slider {
+                height: 60px;
+                width: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 背景音乐 -->
+    <audio id="bgMusic" loop>
+        <source src="xoa0x82ghj.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- 点击音效 -->
+    <audio id="clickSound">
+        <source src="2568.wav" type="audio/wav">
+    </audio>
+    
+    <!-- 音乐控制容器 -->
+    <div class="music-control-container">
+        <div class="volume-control">
+            <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="70" orient="vertical">
+            <div class="volume-label" id="volumeLabel">70%</div>
+        </div>
+        <button class="music-control" id="musicToggle" onclick="toggleMusic()">
+            🎵
+            <div class="music-tooltip" id="musicTooltip">Click to play music</div>
+        </button>
+    </div>
+    
+    <!-- Page 1: Birthday greeting -->
+    <div class="page active" id="page1">
+        <img src="c1j0k64shb.png" alt="Birthday character" class="header-img">
+        <h1 class="title">Hà My của anh💖</h1>
+
+        <span class="emoji">(｡◕‿◕｡)</span>
+        
+        <p class="instruction">Nếu yêu anh thì ấn vào nút bên dưới (つ◕v◕)つ♡</p>
+        
+        <button class="next-btn" onclick="showPage2()">Next!! ♪～♪</button>
+    </div>
+
+    <!-- Page 2: Envelope question -->
+    <div class="page" id="page2">
+        <img src="lhwhk0jmgr.jpg" alt="Pink envelope" class="envelope-img">
+        
+        <p class="question-text">Vợ yêu có muốn mở bức thư này ra không ọ"ヾ(＂•̀_•́＂)ノ＂</p>
+        
+        <div class="button-container">
+            <button class="choice-btn open-btn" onclick="openEnvelope()">Có ạ</button>
+            <button class="choice-btn no-btn" onclick="sayNo()">Nah</button>
+        </div>
+    </div>
+
+    <!-- Letter Modal -->
+    <div class="modal" id="letterModal">
+        <div class="letter-container">
+            <div class="letter-header">
+                <h3 class="letter-title">Gửi thế giới của anh (ﾉ◕o◕)ﾉ♡ !!</h3>
+                <button class="close-btn" onclick="closeLetter()">×</button>
+            </div>
+            <div class="letter-content">
+                <div class="letter-greeting" contenteditable="true">Hà My ới ời ợi ơi
+                </div>
+                
+
+                <div class="letter-text" contenteditable="true">
+                    9 tháng mình bên nhau rùi nè cụ thể hơn thì chính là 25/12/2024-25/09/2025, 274 ngày, 6,576 giờ, 394,560 phút, 23,673,600 giây mình là của nhau 💖💖💖<br>
+                    Trong tháng 9 này mình đã không còn như tháng trước ( chắc là tháng địa ngục trong 9 tháng yêu nhau ) mà mình đã yêu nhau nhiều hơn và anh cảm thấy rất hạnh phúc vì điều đó. Không những thế mình còn dành cho nhau nhiều thời gian ở bên nhau hơn những tháng trước á á nên anh có cảm giác hôm nào cũng được thấy em hjhj, vui lắm luôn ớ. Nhưng chắc là anh vẫn yêu em nhiều hơn em yêu anh đó đồ ngốc ( Ước gì các tháng sau Hà My sẽ ôm mình nhiều hơn vì mình rất thích được Hà My ôm, à mình còn thích em ấy nói yêu mình nữa hj ). Nhưng cuối cùng thì anh cũng chỉ muốn nói với Hà My rằng anh yêu em nhiều lắm ạ, em có thể thoải mái gây sự, nhiễu, dỗi hay làm trò với anh vì anh không thấy phiền đâu mà chỉ thấy em cute thôi ớ ớ. Nhưng chắc My không yêu anh như thế rùi huhuheoheo. À :))))) chắc tháng này mình còn update thêm cả về phần s*x  nữa nhỉ dâm nữ, aish em càng ngày càng dâm thui (  anh thích lắm ). Còn nữa, em bé của anh tháng này đã không còn khok nhiều như trước và anh cảm thấy rấc vui đó, anh thích thấy Hà My cười hơn á á. Giờ là cuối cùng thật nè, anh mong Hà My sẽ càng ngày càng yêu anh nhiều thêm  nữa, không bao giờ bớt đi xíu nào nhá hjhj và anh cũng z á á, cũng như sẽ luôn luôn may mắn và không gặp phải bất cứ vấn đề nào khiến My bùn hjhj. ANH YÊU HÀ MY LAMMM! 
+                </div>
+
+            <div class="image-wrapper">
+                <img src="d9928428-c127-418b-be58-c8e90988eece.jfif" alt="Ảnh kỷ niệm" width="550">
+            </div>
+
+                <div class="letter-signature" contenteditable="true">
+                    Người yêu em nhất trên đời,<br>
+                    Cao Trần Trung 💖
+                </div>
+                
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 3: Please try again -->
+    <div class="page" id="page3">
+        <img src="mhdk5h7anz.jpg" alt="Crying character" class="crying-img">
+        
+        <h2 class="plea-title">Đừng màaa thử lại điii</h2>
+        <h2 class="plea-subtitle">PLEASEE?</h2>
+        
+        <div class="button-container">
+            <button class="choice-btn open-btn" onclick="tryAgain()">Again..?</button>
+        </div>
+    </div>
+
+    <script>
+        // 预加载图片
+        window.addEventListener('DOMContentLoaded', function() {
+            const imagesToPreload = [
+                '9yy3sxblhj.png',
+                'lhwhk0jmgr.jpg',
+                'rjonvzwh90.png', 
+                'mhdk5h7anz.jpg',
+                'd4enwza2ob.jpg'
+            ];
+            
+            // 预加载音频文件
+            const audioToPreload = [
+                'xoa0x82ghj.mp3',
+                '2568.wav'
+            ];
+            
+            imagesToPreload.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
+        });
+        
+        function showPage2() {
+            document.getElementById('page1').classList.remove('active');
+            document.getElementById('page2').classList.add('active');
+        }
+
+        function openEnvelope() {
+            document.getElementById('letterModal').classList.add('active');
+        }
+
+        function closeLetter() {
+            document.getElementById('letterModal').classList.remove('active');
+        }
+
+        function sayNo() {
+            document.getElementById('page2').classList.remove('active');
+            document.getElementById('page3').classList.add('active');
+        }
+        
+        function finalNo() {
+            alert('Okay, I understand... maybe next time! 🥺');
+            document.getElementById('page3').classList.remove('active');
+            document.getElementById('page1').classList.add('active');
+        }
+        
+        // 增强的音乐控制系统
+        let isMusicPlaying = false;
+        let currentVolume = 0.7; // 默认音量70%
+        
+        function initializeMusicControls() {
+            const music = document.getElementById('bgMusic');
+            const volumeSlider = document.getElementById('volumeSlider');
+            const volumeLabel = document.getElementById('volumeLabel');
+            
+            // 设置初始音量
+            music.volume = currentVolume;
+            
+            // 音量控制事件
+            volumeSlider.addEventListener('input', function() {
+                currentVolume = this.value / 100;
+                music.volume = currentVolume;
+                volumeLabel.textContent = this.value + '%';
+                
+                // 播放轻微的音效反馈
+                playClickSound();
+            });
+            
+            // 音乐结束事件
+            music.addEventListener('ended', function() {
+                updateMusicUI(false);
+            });
+            
+            // 音乐播放事件
+            music.addEventListener('play', function() {
+                updateMusicUI(true);
+            });
+            
+            // 音乐暂停事件
+            music.addEventListener('pause', function() {
+                updateMusicUI(false);
+            });
+        }
+        
+        function updateMusicUI(playing) {
+            const musicBtn = document.getElementById('musicToggle');
+            const tooltip = document.getElementById('musicTooltip');
+            
+            isMusicPlaying = playing;
+            
+            if (playing) {
+                musicBtn.innerHTML = '🔇<div class="music-tooltip" id="musicTooltip">Music playing - Click to pause</div>';
+                musicBtn.classList.add('playing');
+                tooltip.textContent = 'Music playing - Click to pause';
+            } else {
+                musicBtn.innerHTML = '🎵<div class="music-tooltip" id="musicTooltip">Click to play music</div>';
+                musicBtn.classList.remove('playing');
+                tooltip.textContent = 'Click to play music';
+            }
+        }
+        
+        function toggleMusic() {
+            const music = document.getElementById('bgMusic');
+            
+            // 播放点击音效
+            playClickSound();
+            
+            if (isMusicPlaying) {
+                music.pause();
+            } else {
+                music.play().catch(e => {
+                    console.log('音乐播放失败:', e.message);
+                    // 显示用户友好的错误提示
+                    showMusicError();
+                });
+            }
+        }
+        
+        function showMusicError() {
+            const tooltip = document.getElementById('musicTooltip');
+            const originalText = tooltip.textContent;
+            tooltip.textContent = 'Music blocked - Try clicking again';
+            tooltip.style.background = 'rgba(255, 100, 100, 0.9)';
+            
+            setTimeout(() => {
+                tooltip.textContent = originalText;
+                tooltip.style.background = 'rgba(0, 0, 0, 0.8)';
+            }, 2000);
+        }
+        
+        // 点击音效函数
+        function playClickSound() {
+            const clickSound = document.getElementById('clickSound');
+            clickSound.currentTime = 0; // 重置音频到开头
+            clickSound.play().catch(e => {
+                // 忽略错误
+                console.log('点击音效播放失败');
+            });
+        }
+        
+        // 处理交互开始时自动播放音乐
+        document.addEventListener('click', function() {
+            if (!isMusicPlaying) {
+                const music = document.getElementById('bgMusic');
+                music.play().catch(e => {
+                    console.log('初始音乐播放被阻止');
+                });
+            }
+        }, { once: true });
+        
+        // 为所有按钮添加点击音效
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取所有按钮
+            const buttons = document.querySelectorAll('button, .choice-btn, .next-btn, .save-btn, .music-control');
+            
+            // 为每个按钮添加点击事件监听器
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    playClickSound();
+                });
+            });
+            
+            // 为可编辑的文本区域添加点击事件和自动保存功能
+            const editableElements = document.querySelectorAll('[contenteditable="true"]');
+            editableElements.forEach(element => {
+                // 添加点击音效
+                element.addEventListener('click', function() {
+                    playClickSound();
+                });
+                
+                // 添加输入事件监听，实现自动保存
+                element.addEventListener('input', function() {
+                    // 当内容改变时自动保存
+                    saveLetterContent(false); // false表示不显示提示
+                });
+                
+                // 添加失去焦点事件，确保编辑完成时保存
+                element.addEventListener('blur', function() {
+                    saveLetterContent(false);
+                });
+            });
+        });
+        
+        function tryAgain() {
+            document.getElementById('page3').classList.remove('active');
+            document.getElementById('page1').classList.add('active');
+        }
+        
+        function saveLetterContent(showAlert = true) {
+            if (showAlert) {
+                alert('Content saved! 💌');
+            }
+            
+            // 这里可以添加保存到本地存储的代码
+            const letterGreeting = document.querySelector('.letter-greeting').innerText;
+            const letterTexts = [...document.querySelectorAll('.letter-text')].map(el => el.innerText);
+            const letterSignature = document.querySelector('.letter-signature').innerHTML;
+            
+            // 保存到localStorage
+            localStorage.setItem('letterContent', JSON.stringify({
+                greeting: letterGreeting,
+                texts: letterTexts,
+                signature: letterSignature
+            }));
+        }
+        
+        // 加载保存的内容
+        function loadSavedContent() {
+            const savedContent = localStorage.getItem('letterContent');
+            
+            if (savedContent) {
+                try {
+                    const content = JSON.parse(savedContent);
+                    
+                    // 恢复内容
+                    document.querySelector('.letter-greeting').innerText = content.greeting;
+                    
+                    const textElements = document.querySelectorAll('.letter-text');
+                    content.texts.forEach((text, index) => {
+                        if (textElements[index]) {
+                            textElements[index].innerText = text;
+                        }
+                    });
+                    
+                    document.querySelector('.letter-signature').innerHTML = content.signature;
+                } catch (e) {
+                    console.error('Failed to load saved content', e);
+                }
+            }
+        }
+
+        // 页面加载时初始化
+        window.addEventListener('DOMContentLoaded', function() {
+            loadSavedContent();
+            initializeMusicControls();
+        });
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('letterModal');
+            if (event.target === modal) {
+                closeLetter();
+            }
+        }
+    </script>
+</body>
+</html>
