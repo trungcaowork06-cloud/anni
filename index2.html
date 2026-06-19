@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Học Tư tưởng Hồ Chí Minh – Tóm tắt giáo trình</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: #f4f7fb;
+            color: #1e2a3a;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        header {
+            background: #022b3a;
+            color: #fff;
+            padding: 30px 40px 20px 40px;
+            border-bottom: 6px solid #e7b42c;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        header p {
+            font-size: 1rem;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 16px 40px 8px 40px;
+            background: #f0f4fa;
+            border-bottom: 1px solid #dde3ed;
+        }
+
+        nav button {
+            background: transparent;
+            border: none;
+            padding: 10px 18px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 40px;
+            cursor: pointer;
+            color: #1e2a3a;
+            transition: 0.2s;
+            background: #e9eef4;
+        }
+
+        nav button:hover {
+            background: #d0d9e6;
+        }
+
+        nav button.active {
+            background: #022b3a;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 43, 58, 0.2);
+        }
+
+        main {
+            padding: 30px 40px 50px 40px;
+        }
+
+        .chapter-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #022b3a;
+            border-left: 6px solid #e7b42c;
+            padding-left: 18px;
+            margin-bottom: 24px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+        }
+
+        .section h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e3a4a;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h3::before {
+            content: "●";
+            color: #e7b42c;
+            font-size: 1.2rem;
+        }
+
+        .section p, .section li {
+            font-size: 1rem;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .section ul {
+            padding-left: 28px;
+            list-style: none;
+        }
+
+        .section ul li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 6px;
+        }
+
+        .section ul li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: #e7b42c;
+            font-weight: bold;
+        }
+
+        .highlight {
+            background: #fef7e0;
+            padding: 14px 20px;
+            border-radius: 12px;
+            border-left: 4px solid #e7b42c;
+            margin: 14px 0;
+        }
+
+        .highlight strong {
+            color: #022b3a;
+        }
+
+        .quote {
+            font-style: italic;
+            background: #f1f5f9;
+            padding: 14px 20px;
+            border-radius: 12px;
+            color: #1e3a4a;
+            margin: 12px 0;
+            border-left: 4px solid #7b8c9e;
+        }
+
+        footer {
+            background: #f0f4fa;
+            text-align: center;
+            padding: 16px;
+            font-size: 0.9rem;
+            color: #5a6b7a;
+            border-top: 1px solid #dde3ed;
+        }
+
+        @media (max-width: 680px) {
+            header, main, nav {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            nav button {
+                font-size: 0.85rem;
+                padding: 6px 12px;
+            }
+            .chapter-title {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>📘 Tư tưởng Hồ Chí Minh</h1>
+        <p>Tóm tắt giáo trình (bậc đại học, hệ không chuyên)</p>
+    </header>
+
+    <nav id="navButtons">
+        <!-- các nút được tạo bởi JS -->
+    </nav>
+
+    <main id="content">
+        <!-- Nội dung sẽ được render bởi JS -->
+    </main>
+
+    <footer>
+        Tóm tắt dựa trên giáo trình chuẩn 2021 – dành cho học tập và ôn thi
+    </footer>
+</div>
+
+<script>
+    // ========== DỮ LIỆU TÓM TẮT CÁC CHƯƠNG ==========
+    const chaptersData = {
+        1: {
+            title: "Chương 1: Khái niệm, đối tượng, phương pháp và ý nghĩa học tập",
+            sections: [
+                {
+                    heading: "📌 Khái niệm tư tưởng Hồ Chí Minh",
+                    content: `<p><strong>Đại hội XI (2011)</strong> nêu: <em>“Tư tưởng Hồ Chí Minh là một hệ thống quan điểm toàn diện và sâu sắc về những vấn đề cơ bản của cách mạng Việt Nam, kết quả của sự vận dụng và phát triển sáng tạo chủ nghĩa Mác – Lênin vào điều kiện cụ thể của nước ta, kế thừa và phát triển các giá trị truyền thống tốt đẹp của dân tộc, tiếp thu tinh hoa văn hoá nhân loại; là tài sản tinh thần vô cùng to lớn và quý giá của Đảng và dân tộc ta, mãi mãi soi đường cho sự nghiệp cách mạng của nhân dân ta giành thắng lợi.”</em></p>
+                    <div class="highlight"><strong>Bản chất:</strong> khoa học, cách mạng, hệ thống quan điểm về mục tiêu xây dựng nước Việt Nam hòa bình, độc lập, dân chủ, giàu mạnh.</div>`
+                },
+                {
+                    heading: "🎯 Đối tượng nghiên cứu",
+                    content: `<p>Toàn bộ những quan điểm của Hồ Chí Minh thể hiện trong di sản của Người: bài nói, bài viết, hoạt động thực tiễn và cuộc sống hàng ngày.</p>`
+                },
+                {
+                    heading: "🔍 Phương pháp nghiên cứu",
+                    content: `<ul><li>Duy vật biện chứng và duy vật lịch sử.</li><li>Lôgic – lịch sử.</li><li>Phân tích, tổng hợp, so sánh, khái quát hóa.</li><li>Kết hợp nghiên cứu lý luận và tổng kết thực tiễn.</li></ul>`
+                },
+                {
+                    heading: "⭐ Ý nghĩa học tập",
+                    content: `<ul><li>Nền tảng tư tưởng và kim chỉ nam cho hành động của Đảng và cách mạng Việt Nam.</li><li>Giúp củng cố niềm tin, rèn luyện đạo đức, phong cách Hồ Chí Minh.</li></ul>`
+                }
+            ]
+        },
+        2: {
+            title: "Chương 2: Cơ sở, quá trình hình thành và phát triển",
+            sections: [
+                {
+                    heading: "🏛️ Cơ sở thực tiễn",
+                    content: `<ul>
+                        <li><strong>Việt Nam cuối XIX – đầu XX:</strong> Pháp xâm lược, các phong trào yêu nước (Cần Vương, Đông Kinh Nghĩa Thục, Duy Tân…) thất bại, khủng hoảng đường lối cứu nước.</li>
+                        <li><strong>Thế giới:</strong> Chủ nghĩa đế quốc bành trướng, Cách mạng Tháng Mười Nga (1917) thành công, Quốc tế Cộng sản ra đời (1919).</li>
+                    </ul>`
+                },
+                {
+                    heading: "📚 Cơ sở lý luận",
+                    content: `<p><strong>Chủ nghĩa Mác – Lênin</strong> – đặc biệt là <em>Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa</em> của Lênin – đã giúp Hồ Chí Minh xác định con đường cách mạng vô sản.</p>
+                    <div class="quote">“Muốn cứu nước và giải phóng dân tộc không có con đường nào khác con đường cách mạng vô sản.”</div>`
+                },
+                {
+                    heading: "🧑‍🎓 Nhân tố chủ quan Hồ Chí Minh",
+                    content: `<ul>
+                        <li>Lý tưởng, hoài bão cứu nước; ý chí, nghị lực phi thường.</li>
+                        <li>Vốn văn hóa sâu rộng, nhiều ngoại ngữ, từng sống và hoạt động ở gần 30 nước.</li>
+                        <li>Tư duy độc lập, sáng tạo, giàu tính phê phán; năng lực tổng kết thực tiễn và dự báo.</li>
+                    </ul>`
+                },
+                {
+                    heading: "⏳ Các giai đoạn chính",
+                    content: `<ul>
+                        <li><strong>Trước 1911:</strong> Hình thành tư tưởng yêu nước, chí hướng tìm đường cứu nước.</li>
+                        <li><strong>1911 – 1920:</strong> Tìm thấy con đường cách mạng vô sản (đọc Luận cương Lênin, bỏ phiếu tán thành Quốc tế Cộng sản tại Đại hội Tua).</li>
+                        <li><strong>1920 – 1930:</strong> Hình thành những nội dung cơ bản, sáng lập Đảng Cộng sản Việt Nam, Cương lĩnh chính trị đầu tiên.</li>
+                        <li><strong>1930 – 1941:</strong> Vượt qua thử thách, kiên trì đường lối đúng đắn, chuẩn bị cho Cách mạng Tháng Tám.</li>
+                        <li><strong>1941 – 1969:</strong> Phát triển và soi đường cho cách mạng, để lại Di chúc bất hủ.</li>
+                    </ul>`
+                }
+            ]
+        },
+        3: {
+            title: "Chương 3: Tư tưởng về độc lập dân tộc và chủ nghĩa xã hội",
+            sections: [
+                {
+                    heading: "🇻🇳 Độc lập dân tộc – khát vọng xuyên suốt",
+                    content: `<p>Hồ Chí Minh khẳng định: <strong>“Không có gì quý hơn độc lập, tự do”</strong>.</p>
+                    <ul>
+                        <li>Độc lập dân tộc gắn liền với thống nhất và toàn vẹn lãnh thổ.</li>
+                        <li>Độc lập phải gắn với chủ nghĩa xã hội – đó là con đường duy nhất bảo đảm vững chắc.</li>
+                    </ul>`
+                },
+                {
+                    heading: "🛤️ Con đường cách mạng giải phóng dân tộc",
+                    content: `<ul>
+                        <li><strong>Phải đi theo con đường cách mạng vô sản</strong>, không phải cách mạng tư sản.</li>
+                        <li>Giải phóng dân tộc là nhiệm vụ <strong>trước hết và trên hết</strong>, sau đó mới đến giải phóng giai cấp và giải phóng con người.</li>
+                        <li>Chủ động, sáng tạo, có thể giành thắng lợi <strong>trước cách mạng vô sản ở chính quốc</strong>.</li>
+                    </ul>`
+                },
+                {
+                    heading: "🤝 Lực lượng cách mạng",
+                    content: `<ul>
+                        <li>Phải dựa trên <strong>đại đoàn kết toàn dân tộc</strong>, lấy <strong>liên minh công – nông – trí thức</strong> làm nền tảng.</li>
+                        <li>Động viên mọi tầng lớp, giai cấp, tôn giáo, dân tộc trong Mặt trận dân tộc thống nhất.</li>
+                    </ul>`
+                },
+                {
+                    heading: "⚔️ Phương pháp bạo lực cách mạng",
+                    content: `<ul>
+                        <li>Bạo lực là tất yếu để đập tan bộ máy thống trị của đế quốc, thực dân.</li>
+                        <li>Kết hợp <strong>đấu tranh chính trị và đấu tranh vũ trang</strong>, lực lượng chính trị và lực lượng vũ trang.</li>
+                        <li>Phân biệt rõ <strong>chiến tranh chính nghĩa</strong> và chiến tranh phi nghĩa.</li>
+                    </ul>`
+                },
+                {
+                    heading: "🏗️ Mục tiêu chủ nghĩa xã hội ở Việt Nam",
+                    content: `<ul>
+                        <li><strong>Chính trị:</strong> Chế độ dân chủ, nhân dân làm chủ.</li>
+                        <li><strong>Kinh tế:</strong> Công – nông nghiệp hiện đại, kinh tế quốc doanh và hợp tác xã.</li>
+                        <li><strong>Văn hóa:</strong> Dân tộc, khoa học, đại chúng; tiếp thu tinh hoa nhân loại.</li>
+                        <li><strong>Xã hội:</strong> Công bằng, bình đẳng, không áp bức bóc lột.</li>
+                        <li><strong>Con người:</strong> Phát triển toàn diện, có đạo đức cách mạng.</li>
+                    </ul>`
+                }
+            ]
+        },
+        4: {
+            title: "Chương 4: Tư tưởng về Đảng Cộng sản và Nhà nước của dân, do dân, vì dân",
+            sections: [
+                {
+                    heading: "🚩 Đảng Cộng sản Việt Nam – người cầm lái",
+                    content: `<ul>
+                        <li>Đảng là nhân tố quyết định thắng lợi của cách mạng: <em>“Đảng có vững, cách mệnh mới thành công”</em>.</li>
+                        <li>Đảng lấy chủ nghĩa Mác – Lênin làm nền tảng tư tưởng, kim chỉ nam.</li>
+                        <li>Xây dựng Đảng: <strong>đạo đức cách mạng</strong>, văn minh, trong sạch, vững mạnh.</li>
+                        <li>Nguyên tắc tổ chức: tập trung dân chủ, kỷ luật tự giác, đoàn kết, phê bình, chống chủ nghĩa cá nhân.</li>
+                    </ul>`
+                },
+                {
+                    heading: "🏛️ Nhà nước của nhân dân, do nhân dân, vì nhân dân",
+                    content: `<ul>
+                        <li><strong>Nhà nước của dân:</strong> dân là chủ, mọi quyền lực thuộc về nhân dân.</li>
+                        <li><strong>Nhà nước do dân:</strong> dân cử ra các cơ quan đại diện, dân tham gia quản lý.</li>
+                        <li><strong>Nhà nước vì dân:</strong> phục vụ lợi ích và hạnh phúc của nhân dân.</li>
+                        <li>Bản chất giai cấp công nhân, đồng thời thể hiện tính nhân dân rộng rãi.</li>
+                    </ul>`
+                },
+                {
+                    heading: "📜 Nhà nước pháp quyền và phòng chống tiêu cực",
+                    content: `<ul>
+                        <li>Xây dựng Nhà nước <strong>hợp hiến, hợp pháp</strong>, sống và làm việc theo Hiến pháp và pháp luật.</li>
+                        <li><strong>Pháp quyền nhân nghĩa:</strong> tôn trọng và bảo đảm quyền con người, chăm lo lợi ích mọi người.</li>
+                        <li>Kiểm soát quyền lực: phát huy vai trò của Đảng, nhân dân và các cơ quan nhà nước.</li>
+                        <li>Phòng, chống tham ô, lãng phí, quan liêu, hách dịch, cửa quyền – coi đây là “giặc nội xâm”.</li>
+                    </ul>`
+                }
+            ]
+        },
+        5: {
+            title: "Chương 5: Tư tưởng về đại đoàn kết dân tộc và đoàn kết quốc tế",
+            sections: [
+                {
+                    heading: "🫂 Đại đoàn kết toàn dân tộc",
+                    content: `<ul>
+                        <li><strong>Vai trò chiến lược:</strong> là nhân tố quyết định thắng lợi, là “điểm mẹ” của cách mạng.</li>
+                        <li><strong>Lực lượng:</strong> toàn dân, nòng cốt là liên minh công – nông – trí thức, hạt nhân là Đảng.</li>
+                        <li><strong>Điều kiện xây dựng:</strong> kế thừa truyền thống yêu nước, có lợi ích chung, lòng khoan dung, niềm tin vào dân.</li>
+                        <li><strong>Hình thức:</strong> Mặt trận Dân tộc Thống nhất (Việt Minh, Liên Việt, Mặt trận Tổ quốc Việt Nam…).</li>
+                    </ul>
+                    <div class="highlight">Phương châm: <strong>“Cầu đồng tồn dị”</strong> – lấy cái chung để hạn chế cái riêng, đoàn kết chân thành, giúp đỡ nhau cùng tiến bộ.</div>`
+                },
+                {
+                    heading: "🌍 Đoàn kết quốc tế",
+                    content: `<ul>
+                        <li><strong>Cơ sở:</strong> kết hợp sức mạnh dân tộc với sức mạnh thời đại; cách mạng Việt Nam là bộ phận của cách mạng thế giới.</li>
+                        <li><strong>Nguyên tắc:</strong> đoàn kết trên cơ sở thống nhất mục tiêu và lợi ích, <em>“có lý, có tình”</em>; độc lập, tự chủ, tự lực cánh sinh.</li>
+                        <li><strong>Hình thức:</strong> đoàn kết với giai cấp công nhân quốc tế, phong trào giải phóng dân tộc, các lực lượng tiến bộ và nhân dân yêu chuộng hòa bình.</li>
+                        <li>Chủ trương: <strong>“Làm bạn với tất cả mọi nước dân chủ và không gây thù oán với một ai”</strong>.</li>
+                    </ul>`
+                }
+            ]
+        },
+        6: {
+            title: "Chương 6: Tư tưởng về văn hóa, đạo đức, con người",
+            sections: [
+                {
+                    heading: "🎨 Quan điểm về văn hóa",
+                    content: `<ul>
+                        <li>Văn hóa là mục tiêu và động lực của sự nghiệp cách mạng.</li>
+                        <li><strong>Ba tính chất:</strong> dân tộc, khoa học, đại chúng.</li>
+                        <li>Phải tiếp thu tinh hoa văn hóa nhân loại, kế thừa truyền thống tốt đẹp của dân tộc.</li>
+                    </ul>`
+                },
+                {
+                    heading: "🧭 Đạo đức cách mạng",
+                    content: `<ul>
+                        <li><strong>Cần, kiệm, liêm, chính, chí công vô tư</strong> – đó là nền tảng đạo đức của người cách mạng.</li>
+                        <li>Đạo đức là “gốc” của người cách mạng; phải tu dưỡng suốt đời.</li>
+                        <li>Chống chủ nghĩa cá nhân – “giặc nội xâm” – vì nó là căn bệnh mẹ sinh ra tham ô, lãng phí, quan liêu.</li>
+                    </ul>`
+                },
+                {
+                    heading: "👤 Quan điểm về con người",
+                    content: `<ul>
+                        <li>Con người là vốn quý nhất, là nhân tố quyết định thành công của cách mạng.</li>
+                        <li>Xây dựng con người mới xã hội chủ nghĩa: có tư tưởng và tác phong xã hội chủ nghĩa, yêu nước, yêu lao động, có đạo đức cách mạng.</li>
+                        <li>Chú trọng bồi dưỡng thế hệ trẻ – tương lai của đất nước.</li>
+                    </ul>`
+                },
+                {
+                    heading: "⚖️ Nguyên tắc xây dựng đạo đức: Nói đi đôi với làm, nêu gương",
+                    content: `<ul>
+                        <li><strong>Nói đi đôi với làm:</strong> đạo đức không chỉ là lời nói mà phải thể hiện bằng hành động thực tế.</li>
+                        <li><strong>Nêu gương:</strong> cán bộ, đảng viên, nhất là người đứng đầu phải là tấm gương sáng về đạo đức, lối sống.</li>
+                        <li>Hồ Chí Minh luôn là hiện thân của nguyên tắc này.</li>
+                    </ul>`
+                }
+            ]
+        }
+    };
+
+    // ========== RENDER ==========
+    const nav = document.getElementById('navButtons');
+    const content = document.getElementById('content');
+
+    // Tạo các nút
+    Object.keys(chaptersData).forEach((key, index) => {
+        const btn = document.createElement('button');
+        btn.textContent = `Chương ${key}`;
+        btn.dataset.chapter = key;
+        if (index === 0) btn.classList.add('active');
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderChapter(key);
+        });
+        nav.appendChild(btn);
+    });
+
+    // Hàm render
+    function renderChapter(chapterKey) {
+        const chapter = chaptersData[chapterKey];
+        if (!chapter) return;
+
+        let html = `<div class="chapter-title">${chapter.title}</div>`;
+
+        chapter.sections.forEach(section => {
+            html += `<div class="section">`;
+            html += `<h3>${section.heading}</h3>`;
+            html += `<div>${section.content}</div>`;
+            html += `</div>`;
+        });
+
+        content.innerHTML = html;
+    }
+
+    // Mặc định hiển thị chương 1
+    renderChapter('1');
+</script>
+</body>
+</html>
