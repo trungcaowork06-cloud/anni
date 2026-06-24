@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Thiệp mời đặc biệt - Hãy mở ra để khám phá bất ngờ!">
     <title>💌 Thiệp Mời Đặc Biệt</title>
+    <!-- ===== EMBEDDED CONFIG – Replace the {} with your exported JSON ===== -->
+    <script id="initialConfig" type="application/json">
+        {}
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Great+Vibes&family=Dancing+Script:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -1270,6 +1274,24 @@
             transform: translateX(-50%) translateY(0);
         }
 
+        .export-box {
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 15px;
+            font-family: monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+        .export-box.show {
+            display: block;
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 650px) {
             .envelope {
@@ -1512,14 +1534,16 @@
             <div class="btn-group">
                 <button class="btn btn-primary" onclick="saveAll()">💾 Lưu Thay Đổi</button>
                 <button class="btn btn-secondary" onclick="resetDefaults()">↺ Khôi Phục Mặc Định</button>
+                <button class="btn btn-secondary" onclick="exportConfig()">📋 Xuất Cấu Hình</button>
             </div>
+            <div class="export-box" id="exportBox"></div>
         </main>
     </div>
 
     <div class="toast" id="toast">Đã lưu thành công!</div>
 
     <script>
-        const STORAGE_KEY = 'vintage_invitation_data_v5';
+        const STORAGE_KEY = 'vintage_invitation_data_v6';
         const DEFAULT_DATA = {
             gameEnabled: true,
             quizEnabled: true,
@@ -1547,6 +1571,24 @@
         };
 
         function getData() {
+            // 1. Try embedded config (for public visitors)
+            try {
+                const scriptTag = document.getElementById('initialConfig');
+                if (scriptTag && scriptTag.textContent.trim() !== '{}' && scriptTag.textContent.trim() !== '') {
+                    const embedded = JSON.parse(scriptTag.textContent);
+                    if (embedded && typeof embedded === 'object') {
+                        return {
+                            gameEnabled: embedded.gameEnabled !== undefined ? embedded.gameEnabled : DEFAULT_DATA.gameEnabled,
+                            quizEnabled: embedded.quizEnabled !== undefined ? embedded.quizEnabled : DEFAULT_DATA.quizEnabled,
+                            fonts: { ...DEFAULT_DATA.fonts, ...(embedded.fonts || {}) },
+                            invitation: { ...DEFAULT_DATA.invitation, ...(embedded.invitation || {}) },
+                            questions: embedded.questions && embedded.questions.length > 0 ? embedded.questions : DEFAULT_DATA.questions
+                        };
+                    }
+                }
+            } catch (e) { /* ignore */ }
+
+            // 2. Fallback to localStorage (for admin preview)
             try {
                 const stored = localStorage.getItem(STORAGE_KEY);
                 if (stored) {
@@ -1559,7 +1601,9 @@
                         questions: parsed.questions && parsed.questions.length > 0 ? parsed.questions : DEFAULT_DATA.questions
                     };
                 }
-            } catch (e) {}
+            } catch (e) { /* ignore */ }
+
+            // 3. Default
             return JSON.parse(JSON.stringify(DEFAULT_DATA));
         }
 
@@ -1822,7 +1866,6 @@
         }
 
         function onToggleGame() { appData.gameEnabled = document.getElementById('toggleGame').checked; }
-
         function onToggleQuiz() {
             appData.quizEnabled = document.getElementById('toggleQuiz').checked;
             updateQuizSectionVisibility();
@@ -1896,7 +1939,7 @@
         function saveAll() {
             collectFormData();
             localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
-            showToast('✓ Đã lưu thành công!');
+            showToast('✓ Đã lưu vào trình duyệt! Dùng "Xuất Cấu Hình" để nhúng vào HTML.');
         }
 
         function resetDefaults() {
@@ -1906,6 +1949,19 @@
                 loadAdminFormData();
                 showToast('↺ Đã khôi phục mặc định!');
             }
+        }
+
+        function exportConfig() {
+            collectFormData();
+            const jsonStr = JSON.stringify(appData, null, 2);
+            const box = document.getElementById('exportBox');
+            box.textContent = jsonStr;
+            box.classList.add('show');
+            showToast('📋 Đã tạo JSON. Copy và dán vào thẻ <script id="initialConfig"> trong file HTML.');
+            // Also copy to clipboard
+            navigator.clipboard.writeText(jsonStr).then(() => {
+                showToast('📋 Đã copy JSON vào clipboard!');
+            }).catch(() => {});
         }
 
         function showToast(msg) {
