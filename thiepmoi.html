@@ -4,10 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Thiệp mời đặc biệt - Hãy mở ra để khám phá bất ngờ!">
-    <title>💌 Thiệp Mời Đặc Biệt</title>
-    <!-- ===== EMBEDDED CONFIG – Replace the {} with your exported JSON ===== -->
+    <title>💌 Gửi Hà My của anh</title>
     <script id="initialConfig" type="application/json">
-        {}
+        {
+            "gameEnabled": true,
+            "quizEnabled": true,
+            "fonts": {
+                "titleFont": "'Great Vibes', cursive",
+                "subtitleFont": "'Cormorant Garamond', Georgia, serif",
+                "messageFont": "'Cormorant Garamond', Georgia, serif",
+                "detailsFont": "'Cormorant Garamond', Georgia, serif",
+                "footerFont": "'Great Vibes', cursive"
+            },
+            "invitation": {
+                "title": "Gửi Hà My của anh",
+                "subtitle": "— Mydog —",
+                "message": "Mai là ngày anni của bọn mình, tròn 547 ngày yêu nhau. Anh muốn mời bé đi chơi với anh, thật ra không phải mời đâu mà là bắt buộc đấy ! hjhjhj Anh yêu bé lắmmmm",
+                "date": "Thứ Năm, ngày 25 tháng 6, 2026",
+                "time": "18:00 — 22:00",
+                "location": "Địa điểm : Nơi trẻ con thích làm trò người lớn",
+                "footer": "Hehehe rất háo hức làm trò người lớn với em"
+            },
+            "questions": [
+                {
+                    "question": "Em có muốn đi chơi với anh không?",
+                    "options": [
+                        "Có chứ! 🥰",
+                        "Để em nghĩ đã...",
+                        "Không nha 😅"
+                    ],
+                    "correctIndex": 0
+                },
+                {
+                    "question": "Ngày kỉ niệm là ngày bao nhiêu ? ",
+                    "options": [
+                        "Ngày 25",
+                        "Ngày 26",
+                        "Ngày 27"
+                    ],
+                    "correctIndex": 0
+                },
+                {
+                    "question": "Em hứa sẽ xuống đúng giờ nhé?",
+                    "options": [
+                        "Hứa luôn! 🤞",
+                        "Cố gắng thôi",
+                        "Trễ một chút cho anh mong đợi"
+                    ],
+                    "correctIndex": 0
+                },
+                {
+                    "question": "Em có yêu anh không?",
+                    "options": [
+                        "Có siêu siêu yêu",
+                        "Yêu",
+                        "Cũng cũng"
+                    ],
+                    "correctIndex": 0
+                },
+                {
+                    "question": "Em có gay không",
+                    "options": [
+                        "Có....",
+                        "Yes",
+                        "Yass"
+                    ],
+                    "correctIndex": 2
+                },
+                {
+                    "question": "Em là chó đúng không?",
+                    "options": [
+                        "Ờm không ạ",
+                        "Đúng rùi ạ ",
+                        "No"
+                    ],
+                    "correctIndex": 1
+                },
+                {
+                    "question": "Ngày yêu thứ 382 là thứ mấy",
+                    "options": [
+                        "Thứ 6",
+                        "Thứ 7",
+                        "Chủ Nhật"
+                    ],
+                    "correctIndex": 2
+                }
+            ]
+        }
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Great+Vibes&family=Dancing+Script:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
     <style>
@@ -1455,7 +1538,7 @@
                 <p class="quiz-subtitle">Trả lời đúng tất cả câu hỏi để mở thiệp mời</p>
                 <div class="ornament-divider"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
                 <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizProgressFill" style="width:0%"></div></div>
-                <p class="quiz-question-num" id="quizNum">Câu 1 / 3</p>
+                <p class="quiz-question-num" id="quizNum">Câu 1 / 7</p>
                 <p class="quiz-question-text" id="quizQuestion"></p>
                 <div class="quiz-options" id="quizOptions"></div>
                 <p class="quiz-feedback" id="quizFeedback"></p>
@@ -1468,8 +1551,8 @@
                 <button class="inv-close-btn" onclick="closeInvitation()">✕</button>
                 <div class="paper-letter">
                     <p class="inv-ornament-top">✦ ✦ ✦</p>
-                    <h1 class="inv-title" id="invTitle">Thư Mời Yêu Thương</h1>
-                    <p class="inv-subtitle" id="invSubtitle">— Dành riêng cho em —</p>
+                    <h1 class="inv-title" id="invTitle">Gửi Hà My của anh</h1>
+                    <p class="inv-subtitle" id="invSubtitle">— Mydog —</p>
                     <div class="inv-divider-paper"></div>
                     <p class="inv-message" id="invMessage"></p>
                     <div class="inv-details-paper" id="invDetails">
@@ -1957,8 +2040,6 @@
             const box = document.getElementById('exportBox');
             box.textContent = jsonStr;
             box.classList.add('show');
-            showToast('📋 Đã tạo JSON. Copy và dán vào thẻ <script id="initialConfig"> trong file HTML.');
-            // Also copy to clipboard
             navigator.clipboard.writeText(jsonStr).then(() => {
                 showToast('📋 Đã copy JSON vào clipboard!');
             }).catch(() => {});
